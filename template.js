@@ -141,7 +141,7 @@ module.exports =function (text){
     
          renderer = new THREE.WebGLRenderer()
          renderer.setPixelRatio(width/height)
-         renderer.setClearColor(0x00ff00,0.1)
+         // renderer.setClearColor(0x00ff00,0.1)
          renderer.setSize(width,height)
          
          container.appendChild(renderer.domElement)

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+     
+     // 请给出下面这段代码执行后，log 的打印顺序
+console.log('script start')
+
+// 这边的 await 可能不太好理解，我换成了另一种写法
+function async1() {
+  async2().then(res => {
+    console.log('async1 end')
+  })
+}
+function async2() {
+  console.log('async2 end')
+  return Promise.resolve(undefined);
+}
+async1()
+
+setTimeout(function() {
+  console.log('setTimeout')
+}, 0)
+
+new Promise(resolve => {
+  console.log('Promise')
+  resolve()
+})
+  .then(function() {
+    console.log('promise1')
+  })
+  .then(function() {
+    console.log('promise2')
+  })
+
+console.log('script end')
+
+// log 打印顺序：script start -> async2 end -> Promise -> script end -> async1 end -> promise1 -> promise2 -> setTimeout
+
+
+
+
+
+    </script>
+</body>
+</html>
