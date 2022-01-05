@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+  <script>
+    var a= 0;
+    console.log(a,window.a)
+    if(true)
+    {
+        console.log(a,window.a) //f,0
+        a =10
+        console.log(a,window.a) //10 ,0
+        function a(){}
+        console.log(a,window.a) //10,10
+        a =20
+        console.log(a,window.a) //20,10
+    }
+    console.log(a,window.a) //10,10
+
+  </script>
+
+    
+</body>
+</html>
