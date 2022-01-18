@@ -6,7 +6,13 @@ const fs = require("fs");
 const {resolve} =require("path")
 const getClass =require("./template")
 
-
+router.get('/getInfo', (req, res)=>{
+    setTimeout(()=>{
+      console.log('我进来了', new Date())
+    res.header("Access-Control-Allow-Origin", "*");
+    res.send('hello world')
+    },3000)
+})
 
 // 这里挂载对应的路由
 router.get('/get', (req, res) => {
