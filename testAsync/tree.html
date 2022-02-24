@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="btn"> 点击连线</button>
+    <script>
+        const data = [{
+    "id": 1,
+    "name": "企业主体信用得分",
+    "children": [
+      {
+        "id": 2,
+        "name": "企业素质",
+        "children": [
+          {
+            "id": 5,
+            "name": "基本信息",
+            "children": [
+              {
+                "id": 10,
+                "name": "企业主体信息识别",
+                "children": [
+                ]
+              },
+              {
+                "id": 11,
+                "name": "企业持续注册时间",
+                "children": [
+                ]
+              },
+              {
+                "id": 12,
+                "name": "注册资本",
+                "children": [
+                ]
+              }
+            ]
+          },
+          {
+            "id": 6,
+            "name": "管理认证",
+            "children": [
+              {
+                "id": 13,
+                "name": "国际性管理认证",
+                "children": [
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "name": "履约记录",
+        "children": [
+          {
+            "id": 7,
+            "name": "税务执行情况",
+            "children": [
+              {
+                "id": 14,
+                "name": "是否按时缴纳税款",
+                "children": [
+                ]
+              }
+            ]
+          },
+          {
+            "id": 8,
+            "name": "网贷情况",
+            "children": [
+              {
+                "id": 15,
+                "name": "网贷逾期",
+                "children": [
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "name": "公共监督",
+        "children": [
+          {
+            "id": 9,
+            "name": "行政处罚",
+            "children": [
+              {
+                "id": 16,
+                "name": "处罚信息",
+                "children": [
+                {
+        "id": 17,
+        "name": "lizi1",
+        "children": [
+          {
+            "id": 18,
+            "name": "lizi2",
+            "children": [
+              {
+                "id": 19,
+                "name": "lizi3",
+                "children": [
+                ]
+              }
+            ]
+          },
+          {
+            "id": 20,
+            "name": "lizi4",
+            "children": [
+              {
+                "id": 21,
+                "name": "lizi5",
+                "children": [
+                ]
+              }
+            ]
+          }
+        ]
+      }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
+    const getLevel = function (data) {
+        if (!data) {
+            return 0
+        }
+        let index = 0;
+        for(const d of data) {
+          index = Math.max(1 + getLevel(d.children), index)
+        }
+        return index 
+    }
+
+        const len = getLevel(data)
+        const arr = []
+        const level = []
+        const total = {}
+        const cache = []
+        for(let i=0; i< len;i++){
+            const l = document.createElement('div')
+            l.id ='level'+i
+            document.body.appendChild(l)
+            level.push(l)
+        }   
+        function makeTree(data, index =0 , pid = 0){
+           for (const d of data) {
+               const { name, id, children } = d
+               const content = document.createElement('span' )
+               content.innerText = id + ':' + name 
+               total[id] = {
+                   dom: content,
+                   pid
+               }
+               level[index].appendChild(content) 
+               if (children) {
+                  makeTree(children,index + 1, id)
+               }
+           }
+        }
+       makeTree(data)
+    
+       function connect(x, y, x2,y2) {
+           let deg = x === x2 ? (x2>x)? 270: 90: Math.atan((y2-y) / (x2 -x)) *  180 / Math.PI
+           if (deg > 0) {
+               deg = deg + 180
+           }
+           const len = x === x2 ? Math.abs(y2-y): Math.sqrt((y2-y)*(y2-y) + (x2-x)*(x2-x))
+           console.log(len)
+           const line = document.createElement('div')
+           const style = line.style
+           style.width = len + 'px'
+           style.height = '2px'
+           style.backgroundColor = '#'+ parseInt(Math.random() * 0xffffff).toString(16)
+           style.position= "absolute"
+           style.left = x+ 'px'
+           style.top = y+'px'
+           style.transformOrigin = '0 0'
+           style.transform = 'rotate('+deg+'deg)'
+           cache.push(line)
+           document.body.appendChild(line)
+       }
+
+       function makeLine() {
+           Reflect.ownKeys(total).forEach((k) => {
+               const obj = total[k]
+               const { dom, pid } = obj
+               const { x, y, width, height } = dom.getBoundingClientRect()
+               obj.originX = x + width/2
+               obj.originY = y + height
+               obj.sourceX = obj.originX
+               obj.sourceY = y 
+               if (pid) {
+                 connect(obj.sourceX, obj.sourceY, total[pid].originX, total[pid].originY)   
+               }
+           })
+       }
+       const fn = ()=>{
+          for(const line of cache) {
+            document.body.removeChild(line)
+          }
+         makeLine()
+       }
+       document.getElementById('btn').addEventListener('click',fn)
+       
+    </script>
+</body>
+
+<style>
+  div[id*='level'] {
+     display: flex;
+     justify-content: space-around;
+     padding: 20px;
+  }
+  div[id*='level']  span {
+          padding: 5px;
+          display: inline-block;
+      }
+ 
+</style>
+
+</html>
