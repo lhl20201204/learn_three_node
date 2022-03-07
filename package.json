@@ -19,6 +19,8 @@
     "lodash": "^4.17.21",
     "node-xlsx": "^0.17.2",
     "numeral": "^2.0.6",
+    "opn": "^6.0.0",
+    "robotjs": "^0.6.0",
     "spread_sheet": "^2.2.1",
     "webpack": "^5.64.4",
     "xlsx": "^0.17.4"

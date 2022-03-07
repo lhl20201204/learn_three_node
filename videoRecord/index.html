@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+      <video id="video" autoplay controls>
+        <source id="videoSource"
+        type="video/mp4" />
+      </video>
+ <button id="start">start </button>
+<button id="stop">stop </button>
+   <button id="download"> download</button>
+    <script >
+        const video = document.getElementById('video');
+        const source = document.getElementById('videoSource')
+const start = document.getElementById('start');
+const stop = document.getElementById('stop');
+const download = document.getElementById('download');
+
+
+const displayMediaOptions = {
+    video: {
+        cursor: "always"
+    },
+    audio: false
+}
+
+start.addEventListener('click',function(evt){
+    startCapture();
+},false)
+
+stop.addEventListener('click',function(evt){
+    stopCapture();
+},false)
+
+download.addEventListener('click',function(evt){
+    mydownload();
+},false)
+
+
+let captureStream;
+let recorder;
+let videoUrl;
+ function startCapture() {
+    log = "";
+    
+    navigator.mediaDevices.getDisplayMedia(displayMediaOptions).then(captureStream => {
+    window.URL.revokeObjectURL(video.src);
+    video.srcObject = captureStream;
+    recorder = new MediaRecorder(captureStream);
+    recorder.start();
+        });
+    
+    // 删除原来的blob 
+}
+
+function stopCapture() {
+    let tracks = video.srcObject.getTracks();
+    tracks.forEach(track => {
+        track.stop();
+    });
+    recorder.stop();
+    recorder.addEventListener('dataavailable',(event)=>{
+      videoUrl = URL.createObjectURL(event.data,{type:'video/mp4'});
+        console.log('加载' )
+        source.src = videoUrl;
+        video.srcObject = null;
+        video.src = videoUrl;
+    })
+
+}
+
+function mydownload(){
+    const name = new Date().toISOString().slice(0,19).replace('T',' ').replace(' ','_').replace(/:/g,'-');
+    const a = document.createElement('a');
+    a.href = videoUrl;
+    a.download = `我的录制视频${name}.mp4`;
+    document.body.appendChild(a);
+    a.click();
+
+}
+
+
+    </script>
+    <style>
+        
+#video{
+    width: 600px;
+    height: 400px;
+}
+
+    </style>
+</body>
+</html>

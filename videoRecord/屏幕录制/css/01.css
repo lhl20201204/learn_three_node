@@ -1,0 +1,37 @@
+
+  .container{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      margin: 20px;
+  }
+  #video {
+    border: 10px solid cornflowerblue;
+    border-radius: 15px;
+    box-shadow: 0 0 25px rgb(172, 198, 212);
+
+  }
+  #videoSave {
+    border: 10px solid cornflowerblue;
+    border-radius: 15px;
+    box-shadow: 0 0 25px rgb(172, 198, 212);
+
+  }
+  .btns div{
+      margin: 20px 30px;
+      width: 100px;
+      height: 40px;
+      line-height: 40px;
+      display: inline-block;
+      background: cornflowerblue;
+      border-radius: 5px;
+      cursor: pointer;
+      text-align: center;
+      color: #fff;
+      font-size: 18px;
+  }
+  .btns div:hover{
+      background: rgb(133, 169, 235);
+      color: rgb(179, 202, 236);
+  }
