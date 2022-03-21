@@ -8,22 +8,136 @@
 </head>
 <body>
   <script>
-    var a= 0;
-    console.log(a,window.a)
-    if(true)
-    {
-        console.log(a,window.a) //f,0
-        a =10
-        console.log(a,window.a) //10 ,0
-        function a(){}
-        console.log(a,window.a) //10,10
-        a =20
-        console.log(a,window.a) //20,10
+    // var a= 0;
+    // console.log(a,window.a)
+    // if(true)
+    // {
+    //     console.log(a,window.a) //f,0
+    //     a =10
+    //     console.log(a,window.a) //10 ,0
+    //     function a(){}
+    //     console.log(a,window.a) //10,10
+    //     a =20
+    //     console.log(a,window.a) //20,10
+    // }
+    // console.log(a,window.a) //10,10
+
+
+//     var a = 1;
+// function b(a =3) {
+//   // a = 10;
+//   console.log(a)
+//   // const a = 10
+//   return;
+//   function a() {}
+// }
+// b();
+// console.log(a); // 1
+
+
+
+// function a() {
+//   this.func = "func";
+//   console.log("this", this);
+//   this.c(2)
+// }
+// a.prototype.c = (x) => {
+// console.log(2 * x)
+// }
+// var b = {
+//   test: new a(),
+//   c(x){
+//     console.log(x)
+//   }
+// };
+// a.bind(b)()
+// b.test; // this a { func: 'func' }
+
+// let x = 1;
+// function A(y){
+//    let x = 2;
+//    function B(z){
+//        console.log(x+y+z);
+//    }
+//    return B;
+// }
+// let C = A(2);
+// C(3);
+
+
+// let x = 5;
+// function fn(x) {
+//     return function(y) {
+//         console.log(y + (++x));
+//     }
+// }
+// let f = fn(6);
+// f(7);   
+// console.log(x);
+
+// let p = 1; 
+ 
+// function myFunc(pp = p + 1) { 
+//   console.log(pp)
+//   return p; 
+// } 
+ 
+// myFunc(); // ???
+
+// var foo = {n:1};
+//    (function (foo) {
+//        console.log(foo.n);
+//        foo.n=3;
+//        var foo = {n:2};
+//        console.log(foo.n);
+//    })(foo);
+//    console.log(foo.n); 
+
+
+// console.log(a)  // undefined
+// var a = 100
+
+// fn('zhangsan')  // 'zhangsan' 20
+// function fn(name) {
+//     age = 20
+//     console.log(name, age)
+//     var age
+// }
+
+// console.log(b); // 这里报错
+// // Uncaught ReferenceError: b is not defined
+// b = 100;
+
+
+// var a = {
+//     name: 'A',
+//     fn: function () {
+//         console.log(this.name)
+//     }
+// }
+// a.fn()  // this === a
+// a.fn.call({name: 'B'})  // this === {name: 'B'}
+// var fn1 = a.fn
+// fn1()  // this === window
+
+function F1() {
+    var a = 100
+    return function () {
+        console.log(a)
     }
-    console.log(a,window.a) //10,10
+}
+function F2(f1) {
+    var a = 200
+    console.log(f1())
+}
+var f1 = F1()
+F2(f1)
+
+
+
 
   </script>
 
-    
+  
 </body>
 </html>
